@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/navigation_menu.dart';
+import 'package:ecommerce_app/pages/forget_password_page.dart';
 import 'package:ecommerce_app/pages/sign_up_page.dart';
 import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
@@ -86,7 +88,8 @@ class LoginForm extends StatelessWidget {
                   ],
                 ),
                 TextButton(
-                    onPressed: () {}, child: const Text(TTexts.forgetPassword))
+                    onPressed: () => Get.to(() => const ForgetPasswordPage()),
+                    child: const Text(TTexts.forgetPassword))
               ],
             ),
             const SizedBox(
@@ -96,7 +99,8 @@ class LoginForm extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: () {}, child: const Text(TTexts.signIn)),
+                  onPressed: () => Get.offAll(() => const NavigationMenu()),
+                  child: const Text(TTexts.signIn)),
             ),
             const SizedBox(
               height: TSizes.spaceBtwItems / 2,
