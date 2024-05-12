@@ -135,7 +135,7 @@ class HomePromoSlider extends StatelessWidget {
           options: CarouselOptions(
               viewportFraction: 1,
               onPageChanged: (index, _) =>
-                  controller.UpdatePageIndicator(index)),
+                  controller.updatePageIndicator(index)),
           items: const [
             RoundedImage(
               imagepath: TImageStrings.promoBanner1,

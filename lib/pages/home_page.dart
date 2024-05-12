@@ -2,6 +2,8 @@ import 'package:ecommerce_app/common/widgets/cart_counter_icon.dart';
 
 import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
 import 'package:ecommerce_app/common/widgets/custom_search_bar.dart';
+import 'package:ecommerce_app/common/widgets/grid_layout.dart';
+import 'package:ecommerce_app/common/widgets/product_card_vertical.dart';
 
 import 'package:ecommerce_app/features/homepage/widgets/homepage_widgets.dart';
 
@@ -52,7 +54,14 @@ class HomePage extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.all(TSizes.defaultSpace),
               child: HomePromoSlider(),
-            )
+            ),
+            const SizedBox(
+              height: TSizes.spaceBtwSections,
+            ),
+            GridLayout(
+              itemcount: 4,
+              itembuilder: (_, index) => const ProductCardVertical(),
+            ),
           ],
         ),
       ),

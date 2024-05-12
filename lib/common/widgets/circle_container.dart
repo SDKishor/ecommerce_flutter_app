@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 class CircleContainer extends StatelessWidget {
   const CircleContainer(
       {super.key,
-      this.width = 400,
-      this.height = 400,
+      this.width,
+      this.height,
       this.child,
       this.radius = 400,
-      this.padding = 0,
+      this.padding,
       this.backgroundcolor = TColors.white,
       this.margin});
 
@@ -16,7 +16,7 @@ class CircleContainer extends StatelessWidget {
   final double? height;
   final Widget? child;
   final double radius;
-  final double padding;
+  final EdgeInsets? padding;
   final EdgeInsets? margin;
   final Color? backgroundcolor;
 
@@ -25,7 +25,7 @@ class CircleContainer extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      padding: EdgeInsets.all(padding),
+      padding: padding,
       margin: margin,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
