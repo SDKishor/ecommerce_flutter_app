@@ -5,11 +5,13 @@ import 'package:ecommerce_app/common/widgets/circle_container.dart';
 import 'package:ecommerce_app/common/widgets/circular_icon.dart';
 import 'package:ecommerce_app/common/widgets/product_price_text.dart';
 import 'package:ecommerce_app/common/widgets/rounded_image.dart';
+import 'package:ecommerce_app/pages/product_details_page.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ProductCardVertical extends StatelessWidget {
@@ -20,7 +22,9 @@ class ProductCardVertical extends StatelessWidget {
     final darkmode = THelperFunctions.isDarkMode(context);
 
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.to(() => const ProductDetails());
+      },
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
