@@ -7,10 +7,12 @@ class CartCounterIcon extends StatelessWidget {
     super.key,
     this.iconColor = TColors.white,
     required this.onpressed,
+    required this.darkmode,
   });
 
   final Color? iconColor;
   final VoidCallback onpressed;
+  final bool darkmode;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +30,13 @@ class CartCounterIcon extends StatelessWidget {
               width: 18,
               height: 18,
               decoration: BoxDecoration(
-                  color: TColors.black,
+                  color: darkmode ? TColors.light : TColors.dark,
                   borderRadius: BorderRadius.circular(100)),
               child: Center(
                 child: Text("2",
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelLarge!
-                        .apply(color: TColors.grey, fontSizeFactor: .8)),
+                    style: Theme.of(context).textTheme.labelLarge!.apply(
+                        color: darkmode ? TColors.dark : TColors.light,
+                        fontSizeFactor: .8)),
               ),
             ))
       ],

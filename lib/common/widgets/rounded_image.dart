@@ -15,13 +15,14 @@ class RoundedImage extends StatelessWidget {
     this.applyImageRadius = true,
     this.fit = BoxFit.contain,
     this.isNetworkImage = false,
+    this.imageColor,
   });
 
   final String imagepath;
   final VoidCallback? ontap;
   final double? height, width;
   final EdgeInsetsGeometry? padding;
-  final Color backgroundColor;
+  final Color? backgroundColor, imageColor;
   final BoxBorder? border;
   final bool applyImageRadius;
   final BoxFit? fit;
@@ -48,6 +49,7 @@ class RoundedImage extends StatelessWidget {
             image: isNetworkImage
                 ? NetworkImage(imagepath)
                 : AssetImage(imagepath) as ImageProvider,
+            color: imageColor,
           ),
         ),
       ),

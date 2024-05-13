@@ -4,10 +4,13 @@ import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
 import 'package:ecommerce_app/common/widgets/custom_search_bar.dart';
 import 'package:ecommerce_app/common/widgets/grid_layout.dart';
 import 'package:ecommerce_app/common/widgets/product_card_vertical.dart';
+import 'package:ecommerce_app/common/widgets/section_heading.dart';
 
 import 'package:ecommerce_app/features/homepage/widgets/homepage_widgets.dart';
+import 'package:ecommerce_app/utils/constants/colors.dart';
 
 import 'package:ecommerce_app/utils/constants/sizes.dart';
+import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -15,6 +18,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final darkmode = THelperFunctions.isDarkMode(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -27,6 +32,7 @@ class HomePage extends StatelessWidget {
                     title: const HomeAppbarTitle(),
                     actions: [
                       CartCounterIcon(
+                        darkmode: darkmode,
                         onpressed: () {},
                       )
                     ],
@@ -58,9 +64,26 @@ class HomePage extends StatelessWidget {
             const SizedBox(
               height: TSizes.spaceBtwSections,
             ),
-            GridLayout(
-              itemcount: 4,
-              itembuilder: (_, index) => const ProductCardVertical(),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
+              child: SectionHeading(
+                headingText: "Popular Products",
+                onpressed: () {},
+                showButton: false,
+                textColor: !darkmode ? TColors.dark : TColors.light,
+              ),
+            ),
+            const SizedBox(
+              height: TSizes.spaceBtwSections,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: TSizes.defaultSpace / 2),
+              child: GridLayout(
+                itemcount: 4,
+                itembuilder: (_, index) => const ProductCardVertical(),
+              ),
             ),
           ],
         ),

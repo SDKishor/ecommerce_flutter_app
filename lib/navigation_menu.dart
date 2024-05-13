@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/pages/home_page.dart';
+import 'package:ecommerce_app/pages/store_page.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 
@@ -43,9 +44,7 @@ class NavigationController extends GetxController {
 
   final screens = [
     const HomePage(),
-    Container(
-      color: Colors.blueAccent,
-    ),
+    const StorePage(),
     Container(
       color: Colors.pinkAccent,
     ),
