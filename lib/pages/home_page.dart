@@ -3,6 +3,7 @@ import 'package:ecommerce_app/common/widgets/cart_counter_icon.dart';
 import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
 import 'package:ecommerce_app/common/widgets/custom_search_bar.dart';
 import 'package:ecommerce_app/common/widgets/grid_layout.dart';
+import 'package:ecommerce_app/common/widgets/primary_header_container.dart';
 import 'package:ecommerce_app/common/widgets/product_card_vertical.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
 
@@ -24,7 +25,7 @@ class HomePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            HomepagHeader(
+            PrimaryHeaderContainer(
               child: Column(
                 children: [
                   //appbar

@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_app/common/widgets/circle_container.dart';
-import 'package:ecommerce_app/common/widgets/curved_edges.dart';
 import 'package:ecommerce_app/common/widgets/rounded_image.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
 import 'package:ecommerce_app/common/widgets/vertical_image_text.dart';
@@ -11,42 +10,6 @@ import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-class HomepagHeader extends StatelessWidget {
-  const HomepagHeader({
-    super.key,
-    required this.child,
-  });
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return CurvedEdgeWidget(
-      child: Container(
-        color: TColors.primary,
-        padding: const EdgeInsets.all(0),
-        child: Stack(
-          children: [
-            Positioned(
-                top: -150,
-                right: -250,
-                child: CircleContainer(
-                  backgroundcolor: TColors.textWhite.withOpacity(0.1),
-                )),
-            Positioned(
-                top: 100,
-                right: -300,
-                child: CircleContainer(
-                  backgroundcolor: TColors.textWhite.withOpacity(0.1),
-                )),
-            child
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class HomeAppbarTitle extends StatelessWidget {
   const HomeAppbarTitle({

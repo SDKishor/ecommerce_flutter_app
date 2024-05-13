@@ -1,5 +1,7 @@
 import 'package:ecommerce_app/pages/home_page.dart';
+import 'package:ecommerce_app/pages/profile_page.dart';
 import 'package:ecommerce_app/pages/store_page.dart';
+import 'package:ecommerce_app/pages/wishlist_page.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 
@@ -45,11 +47,7 @@ class NavigationController extends GetxController {
   final screens = [
     const HomePage(),
     const StorePage(),
-    Container(
-      color: Colors.pinkAccent,
-    ),
-    Container(
-      color: Colors.redAccent,
-    ),
+    const WishListPage(),
+    const ProfilePage(),
   ];
 }

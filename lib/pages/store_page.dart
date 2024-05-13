@@ -1,7 +1,5 @@
 import 'package:ecommerce_app/common/widgets/brand_card.dart';
-import 'package:ecommerce_app/common/widgets/brand_show_case_card.dart';
 import 'package:ecommerce_app/common/widgets/cart_counter_icon.dart';
-import 'package:ecommerce_app/common/widgets/circle_container.dart';
 import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
 import 'package:ecommerce_app/common/widgets/custom_search_bar.dart';
 import 'package:ecommerce_app/common/widgets/custom_tab_bar.dart';
@@ -9,11 +7,9 @@ import 'package:ecommerce_app/common/widgets/grid_layout.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
 import 'package:ecommerce_app/features/storepage/widgets/storepage_widgets.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
-import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class StorePage extends StatelessWidget {
   const StorePage({super.key});
