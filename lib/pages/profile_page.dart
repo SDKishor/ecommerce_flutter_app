@@ -3,10 +3,12 @@ import 'package:ecommerce_app/common/widgets/primary_header_container.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
 import 'package:ecommerce_app/common/widgets/setting_menu_tile.dart';
 import 'package:ecommerce_app/features/profilepage/widgets/profilepage_widgets.dart';
+import 'package:ecommerce_app/pages/user_addresses_page.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -50,10 +52,14 @@ class ProfilePage extends StatelessWidget {
                   const SizedBox(
                     height: TSizes.spaceBtwSections,
                   ),
-                  const SettingMenuTile(
-                      icon: Iconsax.safe_home,
-                      title: "My Address",
-                      subtitle: "Set shopping delivery address"),
+                  SettingMenuTile(
+                    icon: Iconsax.safe_home,
+                    title: "My Address",
+                    subtitle: "Set shopping delivery address",
+                    ontap: () {
+                      Get.to(() => const UserAddressPage());
+                    },
+                  ),
                   const SettingMenuTile(
                       icon: Iconsax.shopping_cart,
                       title: "My Cart",

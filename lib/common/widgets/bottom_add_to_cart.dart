@@ -11,11 +11,11 @@ class BottomAddToCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
           vertical: TSizes.defaultSpace / 2, horizontal: TSizes.defaultSpace),
       decoration: BoxDecoration(
         color: darkmode ? TColors.darkerGrey : TColors.light,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(TSizes.cardRadiusLg),
           topRight: Radius.circular(TSizes.cardRadiusLg),
         ),

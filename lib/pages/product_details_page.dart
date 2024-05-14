@@ -1,9 +1,11 @@
 import 'package:ecommerce_app/common/widgets/bottom_add_to_cart.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
 import 'package:ecommerce_app/features/productdetailpage/widgets/product_detail_page_widgets.dart';
+import 'package:ecommerce_app/pages/procuct_review_page.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 
@@ -76,7 +78,9 @@ class ProductDetails extends StatelessWidget {
                         showButton: false,
                       ),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(() => const ProductReviewPage());
+                          },
                           icon: const Icon(
                             Iconsax.arrow_right_3,
                             size: 18,

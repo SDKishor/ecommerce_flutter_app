@@ -16,6 +16,7 @@ class RoundedImage extends StatelessWidget {
     this.fit = BoxFit.contain,
     this.isNetworkImage = false,
     this.imageColor,
+    this.radius = TSizes.md,
   });
 
   final String imagepath;
@@ -27,6 +28,7 @@ class RoundedImage extends StatelessWidget {
   final bool applyImageRadius;
   final BoxFit? fit;
   final bool isNetworkImage;
+  final double radius;
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +39,12 @@ class RoundedImage extends StatelessWidget {
         width: width,
         padding: padding,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(TSizes.md),
+            borderRadius: BorderRadius.circular(radius),
             color: backgroundColor,
             border: border),
         child: ClipRRect(
           borderRadius: applyImageRadius
-              ? BorderRadius.circular(TSizes.md)
+              ? BorderRadius.circular(radius)
               : BorderRadius.zero,
           child: Image(
             fit: fit,
