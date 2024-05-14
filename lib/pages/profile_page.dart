@@ -4,6 +4,7 @@ import 'package:ecommerce_app/common/widgets/section_heading.dart';
 import 'package:ecommerce_app/common/widgets/setting_menu_tile.dart';
 import 'package:ecommerce_app/features/profilepage/widgets/profilepage_widgets.dart';
 import 'package:ecommerce_app/pages/user_addresses_page.dart';
+import 'package:ecommerce_app/pages/user_order_page.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
@@ -64,10 +65,14 @@ class ProfilePage extends StatelessWidget {
                       icon: Iconsax.shopping_cart,
                       title: "My Cart",
                       subtitle: "Add, remove product and move to checkout"),
-                  const SettingMenuTile(
-                      icon: Iconsax.bag_tick,
-                      title: "My Orders",
-                      subtitle: "In-progress and completed Orders"),
+                  SettingMenuTile(
+                    icon: Iconsax.bag_tick,
+                    title: "My Orders",
+                    subtitle: "In-progress and completed Orders",
+                    ontap: () {
+                      Get.to(() => const UserOrderPage());
+                    },
+                  ),
                   const SettingMenuTile(
                       icon: Iconsax.bank,
                       title: "Bank Accounts",

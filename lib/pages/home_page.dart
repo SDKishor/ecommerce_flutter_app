@@ -8,11 +8,13 @@ import 'package:ecommerce_app/common/widgets/product_card_vertical.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
 
 import 'package:ecommerce_app/features/homepage/widgets/homepage_widgets.dart';
+import 'package:ecommerce_app/pages/cart_page.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -34,7 +36,9 @@ class HomePage extends StatelessWidget {
                     actions: [
                       CartCounterIcon(
                         darkmode: darkmode,
-                        onpressed: () {},
+                        onpressed: () {
+                          Get.to(() => const CartPage());
+                        },
                       )
                     ],
                   ),

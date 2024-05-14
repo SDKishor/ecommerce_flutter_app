@@ -12,6 +12,7 @@ class CircularIcon extends StatelessWidget {
     this.iconColor,
     required this.icon,
     this.onpressed,
+    this.backgroundColor,
   });
 
   final bool darkmode;
@@ -19,6 +20,7 @@ class CircularIcon extends StatelessWidget {
   final double? width, height, size;
   final Color? iconColor;
   final VoidCallback? onpressed;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +29,10 @@ class CircularIcon extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
-        color: darkmode
-            ? TColors.dark.withOpacity(.9)
-            : TColors.light.withOpacity(.9),
+        color: backgroundColor ??
+            (darkmode
+                ? TColors.dark.withOpacity(.9)
+                : TColors.light.withOpacity(.9)),
       ),
       child: IconButton(
         onPressed: onpressed,
