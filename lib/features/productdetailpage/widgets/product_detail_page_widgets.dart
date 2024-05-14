@@ -3,9 +3,11 @@ import 'package:ecommerce_app/common/widgets/circle_container.dart';
 import 'package:ecommerce_app/common/widgets/circular_icon.dart';
 import 'package:ecommerce_app/common/widgets/curved_edges.dart';
 import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
+import 'package:ecommerce_app/common/widgets/custom_choice_chip.dart';
 import 'package:ecommerce_app/common/widgets/product_price_text.dart';
 import 'package:ecommerce_app/common/widgets/product_title_text.dart';
 import 'package:ecommerce_app/common/widgets/rounded_image.dart';
+import 'package:ecommerce_app/common/widgets/section_heading.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/enums.dart';
 import 'package:ecommerce_app/utils/constants/image_strings.dart';
@@ -200,6 +202,145 @@ class ProductMetaData extends StatelessWidget {
           ],
         )
       ],
+    );
+  }
+}
+
+class ProductAattribute extends StatelessWidget {
+  const ProductAattribute({
+    super.key,
+    required this.darkmode,
+  });
+  final bool darkmode;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: TSizes.defaultSpace),
+      child: Column(
+        children: [
+          CircleContainer(
+            radius: 16,
+            padding: const EdgeInsets.all(TSizes.md),
+            backgroundcolor: darkmode ? TColors.darkerGrey : TColors.grey,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    const SectionHeading(
+                      headingText: "Variation",
+                      showButton: false,
+                    ),
+                    const SizedBox(width: TSizes.spaceBtwItems),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const ProductTitleText(
+                              title: "Price",
+                              smallSize: true,
+                            ),
+                            const SizedBox(width: TSizes.spaceBtwItems),
+                            Text(
+                              "\$25",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .apply(
+                                      decoration: TextDecoration.lineThrough),
+                            ),
+                            const SizedBox(width: TSizes.spaceBtwItems),
+                            Text("\$20",
+                                style: Theme.of(context).textTheme.titleMedium),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const ProductTitleText(
+                              title: "Stock",
+                              smallSize: true,
+                            ),
+                            const SizedBox(width: TSizes.spaceBtwItems),
+                            Text("In Stock",
+                                style: Theme.of(context).textTheme.titleMedium),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: TSizes.spaceBtwItems / 2,
+                ),
+                const ProductTitleText(
+                  title:
+                      "this is the Description of the product and it can ge upto max 4 line",
+                  smallSize: true,
+                  maxLines: 4,
+                )
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: TSizes.spaceBtwItems,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SectionHeading(headingText: "Colors"),
+              const SizedBox(height: TSizes.spaceBtwItems / 2),
+              Wrap(
+                spacing: 8,
+                children: [
+                  CustomChoiceChip(
+                    text: "Green",
+                    selected: true,
+                    onselected: (value) {},
+                  ),
+                  CustomChoiceChip(
+                    text: "Blue",
+                    selected: false,
+                    onselected: (value) {},
+                  ),
+                  CustomChoiceChip(
+                    text: "Red",
+                    selected: false,
+                    onselected: (value) {},
+                  )
+                ],
+              )
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SectionHeading(headingText: "Sizes"),
+              const SizedBox(height: TSizes.spaceBtwItems / 2),
+              Wrap(
+                spacing: 8,
+                children: [
+                  CustomChoiceChip(
+                    text: "EU 34",
+                    selected: true,
+                    onselected: (value) {},
+                  ),
+                  CustomChoiceChip(
+                    text: "EU 35",
+                    selected: false,
+                    onselected: (value) {},
+                  ),
+                  CustomChoiceChip(
+                    text: "EU 36",
+                    selected: false,
+                    onselected: (value) {},
+                  )
+                ],
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }
