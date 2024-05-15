@@ -3,6 +3,7 @@ import 'package:ecommerce_app/common/widgets/primary_header_container.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
 import 'package:ecommerce_app/common/widgets/setting_menu_tile.dart';
 import 'package:ecommerce_app/features/profilepage/widgets/profilepage_widgets.dart';
+import 'package:ecommerce_app/pages/cart_page.dart';
 import 'package:ecommerce_app/pages/user_addresses_page.dart';
 import 'package:ecommerce_app/pages/user_order_page.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
@@ -61,7 +62,10 @@ class ProfilePage extends StatelessWidget {
                       Get.to(() => const UserAddressPage());
                     },
                   ),
-                  const SettingMenuTile(
+                  SettingMenuTile(
+                      ontap: () {
+                        Get.to(() => const CartPage());
+                      },
                       icon: Iconsax.shopping_cart,
                       title: "My Cart",
                       subtitle: "Add, remove product and move to checkout"),
