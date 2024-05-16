@@ -4,6 +4,7 @@ import 'package:ecommerce_app/common/widgets/rounded_image.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
 import 'package:ecommerce_app/common/widgets/vertical_image_text.dart';
 import 'package:ecommerce_app/features/homepage/controllers/homepage_controller.dart';
+import 'package:ecommerce_app/pages/sub_catagory_page.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
@@ -70,7 +71,9 @@ class HomeCatagorySection extends StatelessWidget {
                 itemBuilder: (_, index) {
                   return VerticalImageText(
                     image: TImageStrings.shoeIcon,
-                    ontap: () {},
+                    ontap: () {
+                      Get.to(() => const SubCategoriesPage());
+                    },
                     title: "shoes",
                   );
                 }),

@@ -8,6 +8,7 @@ import 'package:ecommerce_app/common/widgets/product_card_vertical.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
 
 import 'package:ecommerce_app/features/homepage/widgets/homepage_widgets.dart';
+import 'package:ecommerce_app/pages/all_product_page.dart';
 import 'package:ecommerce_app/pages/cart_page.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 
@@ -74,8 +75,9 @@ class HomePage extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
               child: SectionHeading(
                 headingText: "Popular Products",
-                onpressed: () {},
-                showButton: false,
+                onpressed: () {
+                  Get.to(() => const AllProducts());
+                },
                 textColor: !darkmode ? TColors.dark : TColors.light,
               ),
             ),

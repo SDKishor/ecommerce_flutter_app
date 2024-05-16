@@ -12,17 +12,19 @@ class BrandCard extends StatelessWidget {
     super.key,
     required this.darkmode,
     this.border = true,
+    this.onpressed,
   });
 
   final bool darkmode;
   final bool border;
+  final VoidCallback? onpressed;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onpressed,
       child: CircleContainer(
-        radius: 20,
+        radius: TSizes.borderRadiusLg,
         padding: const EdgeInsets.all(TSizes.sm),
         border: border,
         bordercolor: darkmode ? TColors.light : TColors.dark,
@@ -33,7 +35,7 @@ class BrandCard extends StatelessWidget {
               child: RoundedImage(
                 imagepath: TImageStrings.clothIcon,
                 backgroundColor: Colors.transparent,
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(TSizes.lg / 2),
                 width: 56,
                 height: 56,
                 imageColor: darkmode ? TColors.light : TColors.dark,
