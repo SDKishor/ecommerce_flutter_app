@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/common/data/repositories/authentication/authentication_repository.dart';
 import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
 import 'package:ecommerce_app/common/widgets/primary_header_container.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
@@ -120,6 +121,16 @@ class ProfilePage extends StatelessWidget {
                       title: "HD Image Quality",
                       subtitle: "set image quality to be seen",
                       trailling: Switch(value: false, onChanged: (value) {})),
+                  const SizedBox(height: TSizes.md),
+                  Center(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        child: const Text("Log Out"),
+                        onPressed: () => AuthenticationRepo.instance.logout(),
+                      ),
+                    ),
+                  )
                 ],
               ),
             )

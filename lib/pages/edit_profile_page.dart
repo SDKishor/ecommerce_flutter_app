@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/common/data/repositories/authentication/authentication_repository.dart';
 import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
 import 'package:ecommerce_app/common/widgets/rounded_image.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
@@ -98,7 +99,7 @@ class EditProfilePage extends StatelessWidget {
                   width: double.infinity,
                   child: OutlinedButton(
                     child: const Text("Log Out"),
-                    onPressed: () {},
+                    onPressed: () => AuthenticationRepo.instance.logout(),
                   ),
                 ),
               )

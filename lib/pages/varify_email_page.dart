@@ -1,5 +1,5 @@
-import 'package:ecommerce_app/pages/login_page.dart';
-import 'package:ecommerce_app/pages/success_page.dart';
+import 'package:ecommerce_app/common/data/repositories/authentication/authentication_repository.dart';
+import 'package:ecommerce_app/features/varifyemail/controllers/varify_email_controller.dart';
 import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/constants/text_strings.dart';
@@ -9,16 +9,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VarifyEmailPage extends StatelessWidget {
-  const VarifyEmailPage({super.key});
+  const VarifyEmailPage({super.key, this.email});
+
+  final String? email;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(VarifyEmailController());
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-              onPressed: () => Get.offAll(() => const LoginPage()),
+              onPressed: () => AuthenticationRepo.instance.logout(),
               icon: const Icon(CupertinoIcons.clear))
         ],
       ),
@@ -47,7 +50,7 @@ class VarifyEmailPage extends StatelessWidget {
                 height: TSizes.spaceBtwItems,
               ),
               Text(
-                "support@kishor.com",
+                email ?? "",
                 style: Theme.of(context).textTheme.labelLarge,
                 textAlign: TextAlign.center,
               ),
@@ -68,13 +71,7 @@ class VarifyEmailPage extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {
-                      Get.to(() => SuccessPage(
-                            image: TImageStrings.staticSuccessIllustration,
-                            title: TTexts.yourAccountCreatedTitle,
-                            subtitle: TTexts.yourAccountCreatedSubTitle,
-                            onpressed: () =>
-                                Get.offAll(() => const LoginPage()),
-                          ));
+                      controller.checkEmailVerificationStatus();
                     },
                     child: const Text(TTexts.tContinue)),
               ),
@@ -85,7 +82,7 @@ class VarifyEmailPage extends StatelessWidget {
                 width: double.infinity,
                 child: TextButton(
                     onPressed: () {
-                      Get.to(() => const VarifyEmailPage());
+                      controller.sendEmailVarification();
                     },
                     child: const Text(TTexts.resendEmail)),
               ),

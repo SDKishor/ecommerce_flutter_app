@@ -6,7 +6,6 @@ import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/helpers/network_manager.dart';
 import 'package:ecommerce_app/utils/popups/full_screen_loader.dart';
 import 'package:ecommerce_app/utils/popups/loaders.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -86,7 +85,9 @@ class SignupController extends GetxController {
           message: "Your account has been created. Verify email to continue");
 
       //Move to verify email Screen
-      Get.offAll(() => const VarifyEmailPage());
+      Get.offAll(() => VarifyEmailPage(
+            email: email.text.trim(),
+          ));
     } catch (e) {
       FullScreenLoader.stopLoading();
       Loaders.errorSnackBar(title: "oh Snap!", message: e.toString());
