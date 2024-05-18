@@ -6,6 +6,7 @@ import 'package:ecommerce_app/utils/validators/validation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:iconsax/iconsax.dart';
 
 class SignupForm extends StatelessWidget {
@@ -87,14 +88,21 @@ class SignupForm extends StatelessWidget {
           const SizedBox(
             height: TSizes.spaceBtwInputFields,
           ),
-          TextFormField(
-            validator: (value) => TValidator.validatePassword(value),
-            controller: controller.password,
-            obscureText: true,
-            decoration: const InputDecoration(
-                labelText: TTexts.password,
-                prefixIcon: Icon(Iconsax.password_check),
-                suffixIcon: Icon(Iconsax.eye_slash)),
+          Obx(
+            () => TextFormField(
+              validator: (value) => TValidator.validatePassword(value),
+              controller: controller.password,
+              obscureText: controller.hidepassword.value,
+              decoration: InputDecoration(
+                  labelText: TTexts.password,
+                  prefixIcon: const Icon(Iconsax.password_check),
+                  suffixIcon: IconButton(
+                      onPressed: () => controller.hidepassword.value =
+                          !controller.hidepassword.value,
+                      icon: controller.hidepassword.value
+                          ? const Icon(Iconsax.eye_slash)
+                          : const Icon(Iconsax.eye))),
+            ),
           ),
           const SizedBox(
             height: TSizes.spaceBtwInputFields,
@@ -104,9 +112,14 @@ class SignupForm extends StatelessWidget {
               SizedBox(
                 width: 24,
                 height: 24,
-                child: Checkbox(
-                  value: true,
-                  onChanged: (value) {},
+                child: Obx(
+                  () => Checkbox(
+                    value: controller.privacyPolicy.value,
+                    onChanged: (value) {
+                      controller.privacyPolicy.value =
+                          !controller.privacyPolicy.value;
+                    },
+                  ),
                 ),
               ),
               const SizedBox(
