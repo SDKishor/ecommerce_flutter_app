@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/features/login/controllers/login_controller.dart';
-import 'package:ecommerce_app/navigation_menu.dart';
+
 import 'package:ecommerce_app/pages/forget_password_page.dart';
 import 'package:ecommerce_app/pages/sign_up_page.dart';
 import 'package:ecommerce_app/utils/constants/image_strings.dart';
@@ -54,6 +54,7 @@ class LoginForm extends StatelessWidget {
     final controller = Get.put(LoginController());
 
     return Form(
+      key: controller.loginFormKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: TSizes.spaceBtwSections),
         child: Column(
@@ -91,12 +92,11 @@ class LoginForm extends StatelessWidget {
             const SizedBox(
               height: TSizes.spaceBtwInputFields / 2,
             ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Obx(
-                  () => Row(
+            Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
                     children: [
                       Checkbox(
                         value: controller.rememberMe.value,
@@ -108,11 +108,11 @@ class LoginForm extends StatelessWidget {
                       const Text(TTexts.rememberMe)
                     ],
                   ),
-                ),
-                TextButton(
-                    onPressed: () => Get.to(() => const ForgetPasswordPage()),
-                    child: const Text(TTexts.forgetPassword))
-              ],
+                  TextButton(
+                      onPressed: () => Get.to(() => const ForgetPasswordPage()),
+                      child: const Text(TTexts.forgetPassword))
+                ],
+              ),
             ),
             const SizedBox(
               height: TSizes.spaceBtwSections,
@@ -121,7 +121,7 @@ class LoginForm extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: () => Get.offAll(() => const NavigationMenu()),
+                  onPressed: () => controller.emailAndPasswordLogin(),
                   child: const Text(TTexts.signIn)),
             ),
             const SizedBox(
