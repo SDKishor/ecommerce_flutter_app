@@ -2,8 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_app/common/widgets/circle_container.dart';
 import 'package:ecommerce_app/common/widgets/rounded_image.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
+import 'package:ecommerce_app/common/widgets/shimmer_effect.dart';
 import 'package:ecommerce_app/common/widgets/vertical_image_text.dart';
 import 'package:ecommerce_app/features/homepage/controllers/homepage_controller.dart';
+import 'package:ecommerce_app/features/common/user_controller.dart';
 import 'package:ecommerce_app/pages/sub_catagory_page.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/image_strings.dart';
@@ -19,6 +21,8 @@ class HomeAppbarTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(UserController());
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -29,13 +33,19 @@ class HomeAppbarTitle extends StatelessWidget {
               .labelMedium!
               .apply(color: TColors.grey),
         ),
-        Text(
-          TTexts.homeAppbarSubTitle,
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall!
-              .apply(color: TColors.white),
-        )
+        Obx(() {
+          if (controller.profileLoading.value) {
+            return const ShimmerEffect(width: 80, hight: 15);
+          } else {
+            return Text(
+              controller.user.value.fullName,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .apply(color: TColors.white),
+            );
+          }
+        })
       ],
     );
   }

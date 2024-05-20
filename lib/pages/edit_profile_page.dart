@@ -1,13 +1,16 @@
-import 'package:ecommerce_app/common/data/repositories/authentication/authentication_repository.dart';
 import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
 import 'package:ecommerce_app/common/widgets/rounded_image.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
 import 'package:ecommerce_app/features/editprofilepage/widgets/edit_profile_page_widgets.dart';
+import 'package:ecommerce_app/features/common/user_controller.dart';
+import 'package:ecommerce_app/pages/change_name_page.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 class EditProfilePage extends StatelessWidget {
   const EditProfilePage({super.key});
@@ -15,6 +18,8 @@ class EditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final darkmode = THelperFunctions.isDarkMode(context);
+
+    final controller = UserController.instance;
     return Scaffold(
       appBar: CustomAppbar(
         showBackArrow: true,
@@ -51,14 +56,16 @@ class EditProfilePage extends StatelessWidget {
               ),
               const SizedBox(height: TSizes.spaceBtwItems),
               ProfileEditMenu(
-                onpress: () {},
+                onpress: () {
+                  Get.to(() => const ChangeNamePage());
+                },
                 title: "Name",
-                value: "Taraq Aziz",
+                value: controller.user.value.fullName,
               ),
               ProfileEditMenu(
                 onpress: () {},
                 title: "Username",
-                value: "Taraq",
+                value: controller.user.value.username,
               ),
               const SizedBox(height: TSizes.spaceBtwItems / 2),
               const Divider(),
@@ -71,17 +78,18 @@ class EditProfilePage extends StatelessWidget {
               ProfileEditMenu(
                 onpress: () {},
                 title: "User ID",
-                value: "45824",
+                value: controller.user.value.id,
+                icon: Iconsax.copy,
               ),
               ProfileEditMenu(
                 onpress: () {},
                 title: "E-mail",
-                value: "taraqaziz1254@gamil.com",
+                value: controller.user.value.email,
               ),
               ProfileEditMenu(
                 onpress: () {},
-                title: "Phone Number",
-                value: "+8801524863",
+                title: "Phone No. ",
+                value: controller.user.value.phoneNumber,
               ),
               ProfileEditMenu(
                 onpress: () {},
@@ -97,9 +105,10 @@ class EditProfilePage extends StatelessWidget {
               Center(
                 child: SizedBox(
                   width: double.infinity,
-                  child: OutlinedButton(
-                    child: const Text("Log Out"),
-                    onPressed: () => AuthenticationRepo.instance.logout(),
+                  child: TextButton(
+                    style: TextButton.styleFrom(foregroundColor: Colors.red),
+                    child: const Text("Delete Account"),
+                    onPressed: () => controller.deleteAccountPopup(),
                   ),
                 ),
               )

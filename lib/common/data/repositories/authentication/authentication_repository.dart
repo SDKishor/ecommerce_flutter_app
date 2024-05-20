@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/common/data/repositories/user/user_repository.dart';
 import 'package:ecommerce_app/navigation_menu.dart';
 import 'package:ecommerce_app/pages/login_page.dart';
 import 'package:ecommerce_app/pages/onboarding_page.dart';
@@ -20,6 +21,8 @@ class AuthenticationRepo extends GetxController {
   //variables
   final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
+
+  User? get authUser => _auth.currentUser;
 
   //called from main.dart on app launch
   @override
@@ -128,6 +131,24 @@ class AuthenticationRepo extends GetxController {
     }
   }
 
+  //reset password
+  sendPasswordResetEmail(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      Get.offAll(() => const LoginPage());
+    } on FirebaseAuthException catch (e) {
+      throw TFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw "something went wrong";
+    }
+  }
+
   //logout
   logout() async {
     try {
@@ -142,6 +163,45 @@ class AuthenticationRepo extends GetxController {
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
+      throw "something went wrong";
+    }
+  }
+
+  //re Authenticate User
+  reAuthenticateUser(String email, String password) async {
+    try {
+      AuthCredential credential =
+          EmailAuthProvider.credential(email: email, password: password);
+      await _auth.currentUser!.reauthenticateWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      throw TFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      Loaders.errorSnackBar(title: "oh Snap!", message: e.toString());
+      throw "something went wrong";
+    }
+  }
+
+  //Delete User
+  deleteUser() async {
+    try {
+      await UserRepo.instance.removeUserData(_auth.currentUser!.uid);
+      await _auth.currentUser!.delete();
+    } on FirebaseAuthException catch (e) {
+      throw TFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      Loaders.errorSnackBar(title: "oh Snap!", message: e.toString());
       throw "something went wrong";
     }
   }

@@ -1,32 +1,20 @@
 import 'package:ecommerce_app/common/data/repositories/authentication/authentication_repository.dart';
-import 'package:ecommerce_app/features/common/user_controller.dart';
+import 'package:ecommerce_app/pages/reset_password_page.dart';
 import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/helpers/network_manager.dart';
 import 'package:ecommerce_app/utils/popups/full_screen_loader.dart';
 import 'package:ecommerce_app/utils/popups/loaders.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
-class LoginController extends GetxController {
-  //variables
-  final rememberMe = false.obs;
-  final hidePassword = true.obs;
-  final localStorage = GetStorage();
+class ForgetPassworController extends GetxController {
+  static ForgetPassworController get instance => Get.find();
+
   final email = TextEditingController();
-  final password = TextEditingController();
-  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  final userController = Get.put(UserController());
+  GlobalKey<FormState> forgetPasswordFormKey = GlobalKey<FormState>();
 
-  @override
-  void onInit() {
-    email.text = localStorage.read("REMEMBER_ME_EMAIL") ?? "";
-    password.text = localStorage.read("REMEMBER_ME_PASSWORD") ?? "";
-
-    super.onInit();
-  }
-
-  emailAndPasswordLogin() async {
+  sendPasswordResetEmail() async {
     try {
       //start loading
       FullScreenLoader.openLoadingDialog(
@@ -42,30 +30,27 @@ class LoginController extends GetxController {
       }
 
       //Form Validation
-      if (!loginFormKey.currentState!.validate()) {
+      if (!forgetPasswordFormKey.currentState!.validate()) {
         FullScreenLoader.stopLoading();
         return;
       }
 
-      //remember me
-      if (rememberMe.value) {
-        localStorage.write("REMEMBER_ME_EMAIL", email.text.trim());
-        localStorage.write("REMEMBER_ME_PASSWORD", password.text.trim());
-      }
-
       await AuthenticationRepo.instance
-          .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
+          .sendPasswordResetEmail(email.text.trim());
 
       FullScreenLoader.stopLoading();
 
-      AuthenticationRepo.instance.screenRedirect();
+      Loaders.successSnackBar(
+          title: "Email Sent", message: "Email Link Sent to reset password");
+
+      Get.to(() => ResetPasswordPage(email: email.text));
     } catch (e) {
       FullScreenLoader.stopLoading();
       Loaders.errorSnackBar(title: "oh Snap!", message: e.toString());
     }
   }
 
-  googleSignIn() async {
+  resendPasswordResetEmail(String email) async {
     try {
       //start loading
       FullScreenLoader.openLoadingDialog(
@@ -80,18 +65,15 @@ class LoginController extends GetxController {
         return;
       }
 
-      //google auth
-      final userCredentials =
-          await AuthenticationRepo.instance.loginWithGoogle();
-
-      await userController.savedUserRecord(userCredentials);
+      await AuthenticationRepo.instance.sendPasswordResetEmail(email);
 
       FullScreenLoader.stopLoading();
 
-      AuthenticationRepo.instance.screenRedirect();
+      Loaders.successSnackBar(
+          title: "Email Sent", message: "Email Link Sent to reset password");
     } catch (e) {
       FullScreenLoader.stopLoading();
-      Loaders.errorSnackBar(title: "oh Shap", message: e.toString());
+      Loaders.errorSnackBar(title: "oh Snap!", message: e.toString());
     }
   }
 }

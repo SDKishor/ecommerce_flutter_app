@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/common/widgets/rounded_image.dart';
+import 'package:ecommerce_app/features/common/user_controller.dart';
 import 'package:ecommerce_app/pages/edit_profile_page.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/image_strings.dart';
@@ -13,20 +14,21 @@ class UserProfileTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = UserController.instance;
     return ListTile(
       leading: const RoundedImage(
         imagepath: TImageStrings.user,
         backgroundColor: Colors.transparent,
       ),
       title: Text(
-        "Taraq Aziz",
+        controller.user.value.fullName,
         style: Theme.of(context)
             .textTheme
             .headlineSmall!
             .apply(color: TColors.white),
       ),
       subtitle: Text(
-        "Taraqaziz254@gmail.com",
+        controller.user.value.email,
         style:
             Theme.of(context).textTheme.bodyMedium!.apply(color: TColors.white),
       ),
