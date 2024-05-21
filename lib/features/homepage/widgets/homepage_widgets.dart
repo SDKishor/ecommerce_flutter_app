@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecommerce_app/common/widgets/category_shimmer_effect.dart';
 import 'package:ecommerce_app/common/widgets/circle_container.dart';
 import 'package:ecommerce_app/common/widgets/rounded_image.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
 import 'package:ecommerce_app/common/widgets/shimmer_effect.dart';
 import 'package:ecommerce_app/common/widgets/vertical_image_text.dart';
+import 'package:ecommerce_app/features/common/categories_controller.dart';
 import 'package:ecommerce_app/features/homepage/controllers/homepage_controller.dart';
 import 'package:ecommerce_app/features/common/user_controller.dart';
 import 'package:ecommerce_app/pages/sub_catagory_page.dart';
@@ -58,6 +60,8 @@ class HomeCatagorySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(CategoriesController());
+
     return Padding(
       padding: const EdgeInsets.only(left: TSizes.defaultSpace),
       child: Column(
@@ -72,22 +76,42 @@ class HomeCatagorySection extends StatelessWidget {
           ),
 
           //categories
-          SizedBox(
-            height: 80,
-            child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: 6,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (_, index) {
-                  return VerticalImageText(
-                    image: TImageStrings.shoeIcon,
-                    ontap: () {
-                      Get.to(() => const SubCategoriesPage());
-                    },
-                    title: "shoes",
-                  );
-                }),
-          )
+          Obx(() {
+            if (controller.isLoading.value) {
+              return const CategoryShimmerEffect();
+            }
+
+            if (controller.featuredCategories.isEmpty) {
+              return Center(
+                child: Text(
+                  "No Data Found!",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .apply(color: Colors.white),
+                ),
+              );
+            }
+
+            return SizedBox(
+              height: 80,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: controller.featuredCategories.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (_, index) {
+                    final category = controller.featuredCategories[index];
+                    return VerticalImageText(
+                      isNetworkImage: true,
+                      image: category.image,
+                      ontap: () {
+                        Get.to(() => const SubCategoriesPage());
+                      },
+                      title: category.name,
+                    );
+                  }),
+            );
+          })
         ],
       ),
     );
