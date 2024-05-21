@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
 import 'package:ecommerce_app/common/widgets/rounded_image.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
+import 'package:ecommerce_app/common/widgets/shimmer_effect.dart';
 import 'package:ecommerce_app/features/editprofilepage/widgets/edit_profile_page_widgets.dart';
 import 'package:ecommerce_app/features/common/user_controller.dart';
 import 'package:ecommerce_app/pages/change_name_page.dart';
@@ -9,7 +10,9 @@ import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:iconsax/iconsax.dart';
 
 class EditProfilePage extends StatelessWidget {
@@ -18,8 +21,8 @@ class EditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final darkmode = THelperFunctions.isDarkMode(context);
-
     final controller = UserController.instance;
+
     return Scaffold(
       appBar: CustomAppbar(
         showBackArrow: true,
@@ -35,14 +38,30 @@ class EditProfilePage extends StatelessWidget {
                 width: double.infinity,
                 child: Column(
                   children: [
-                    const RoundedImage(
-                      imagepath: TImageStrings.user,
-                      backgroundColor: Colors.transparent,
-                      width: 80,
-                      height: 80,
-                    ),
+                    Obx(() {
+                      final networkImage = controller.user.value.profilePicture;
+                      final image = networkImage.isNotEmpty
+                          ? networkImage
+                          : TImageStrings.user;
+
+                      return controller.imageUploading.value
+                          ? const ShimmerEffect(
+                              width: 80,
+                              hight: 80,
+                              radius: 80,
+                            )
+                          : RoundedImage(
+                              isNetworkImage: networkImage.isNotEmpty,
+                              imagepath: image,
+                              backgroundColor: Colors.transparent,
+                              width: 80,
+                              height: 80,
+                            );
+                    }),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.uploadUserProfilePicture();
+                        },
                         child: const Text("change Profile Picture"))
                   ],
                 ),
