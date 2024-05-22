@@ -5,6 +5,7 @@ import 'package:ecommerce_app/common/widgets/custom_search_bar.dart';
 import 'package:ecommerce_app/common/widgets/custom_tab_bar.dart';
 import 'package:ecommerce_app/common/widgets/grid_layout.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
+import 'package:ecommerce_app/features/common/categories_controller.dart';
 import 'package:ecommerce_app/features/storepage/widgets/storepage_widgets.dart';
 import 'package:ecommerce_app/pages/all_brands_page.dart';
 import 'package:ecommerce_app/pages/brands_products.dart';
@@ -20,9 +21,10 @@ class StorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final darkmode = THelperFunctions.isDarkMode(context);
+    final catagories = CategoriesController.instance.featuredCategories;
 
     return DefaultTabController(
-      length: 5,
+      length: catagories.length,
       child: Scaffold(
         appBar: CustomAppbar(
           title: const Text("Store"),
@@ -87,25 +89,17 @@ class StorePage extends StatelessWidget {
                 ),
                 bottom: CustomTabBar(
                   darkmode: darkmode,
-                  tabs: const [
-                    Tab(child: Text("Sports")),
-                    Tab(child: Text("Furnitures")),
-                    Tab(child: Text("Electronics")),
-                    Tab(child: Text("clothes")),
-                    Tab(child: Text("cosmetics")),
-                  ],
+                  tabs: catagories
+                      .map((catagory) => Tab(child: Text(catagory.name)))
+                      .toList(),
                 ),
               ),
             ];
           },
           body: TabBarView(
-            children: [
-              CatagoryTab(darkmode: darkmode),
-              CatagoryTab(darkmode: darkmode),
-              CatagoryTab(darkmode: darkmode),
-              CatagoryTab(darkmode: darkmode),
-              CatagoryTab(darkmode: darkmode),
-            ],
+            children: catagories
+                .map((catagory) => CatagoryTab(darkmode: darkmode))
+                .toList(),
           ),
         ),
       ),

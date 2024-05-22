@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/common/dummydata.dart';
 import 'package:ecommerce_app/common/widgets/cart_counter_icon.dart';
 
 import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
@@ -9,7 +10,6 @@ import 'package:ecommerce_app/common/widgets/section_heading.dart';
 
 import 'package:ecommerce_app/features/homepage/widgets/homepage_widgets.dart';
 import 'package:ecommerce_app/pages/all_product_page.dart';
-import 'package:ecommerce_app/pages/cart_page.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 
 import 'package:ecommerce_app/utils/constants/sizes.dart';
@@ -37,8 +37,9 @@ class HomePage extends StatelessWidget {
                     actions: [
                       CartCounterIcon(
                         darkmode: darkmode,
-                        onpressed: () {
-                          Get.to(() => const CartPage());
+                        onpressed: () async {
+                          // Get.to(() => const CartPage());
+                          DummyData().saveListData();
                         },
                       )
                     ],

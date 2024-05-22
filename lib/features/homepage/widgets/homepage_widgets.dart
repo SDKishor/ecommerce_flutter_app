@@ -5,12 +5,11 @@ import 'package:ecommerce_app/common/widgets/rounded_image.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
 import 'package:ecommerce_app/common/widgets/shimmer_effect.dart';
 import 'package:ecommerce_app/common/widgets/vertical_image_text.dart';
+import 'package:ecommerce_app/features/common/banner_controller.dart';
 import 'package:ecommerce_app/features/common/categories_controller.dart';
-import 'package:ecommerce_app/features/homepage/controllers/homepage_controller.dart';
 import 'package:ecommerce_app/features/common/user_controller.dart';
 import 'package:ecommerce_app/pages/sub_catagory_page.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
-import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
@@ -125,49 +124,54 @@ class HomePromoSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(HomeController());
+    final controller = Get.put(BannerController());
 
-    return Column(
-      children: [
-        CarouselSlider(
-          options: CarouselOptions(
-              viewportFraction: 1,
-              onPageChanged: (index, _) =>
-                  controller.updatePageIndicator(index)),
-          items: const [
-            RoundedImage(
-              imagepath: TImageStrings.promoBanner1,
-            ),
-            RoundedImage(
-              imagepath: TImageStrings.promoBanner1,
-            ),
-            RoundedImage(
-              imagepath: TImageStrings.promoBanner1,
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: TSizes.spaceBtwItems,
-        ),
-        Center(
-          child: Obx(
-            () => Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                for (int i = 0; i < 3; i++)
-                  CircleContainer(
-                    width: 20,
-                    height: 4,
-                    margin: const EdgeInsets.only(right: 10),
-                    backgroundcolor: controller.carousalCurrentIndex.value == i
-                        ? TColors.primary
-                        : TColors.grey,
-                  ),
-              ],
-            ),
+    return Obx(() {
+      if (controller.isLoading.value) {
+        return const ShimmerEffect(width: 190 * 2, hight: 190);
+      }
+      if (controller.allBanners.isEmpty) {
+        return const Center(child: Text("No data found!"));
+      }
+
+      return Column(
+        children: [
+          CarouselSlider(
+              options: CarouselOptions(
+                  viewportFraction: 1,
+                  onPageChanged: (index, _) =>
+                      controller.updatePageIndicator(index)),
+              items: controller.allBanners
+                  .map((banner) => RoundedImage(
+                        isNetworkImage: true,
+                        imagepath: banner.image,
+                        ontap: () => Get.toNamed(banner.targetScreen),
+                      ))
+                  .toList()),
+          const SizedBox(
+            height: TSizes.spaceBtwItems,
           ),
-        )
-      ],
-    );
+          Center(
+            child: Obx(
+              () => Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (int i = 0; i < controller.allBanners.length; i++)
+                    CircleContainer(
+                      width: 20,
+                      height: 4,
+                      margin: const EdgeInsets.only(right: 10),
+                      backgroundcolor:
+                          controller.carousalCurrentIndex.value == i
+                              ? TColors.primary
+                              : TColors.grey,
+                    ),
+                ],
+              ),
+            ),
+          )
+        ],
+      );
+    });
   }
 }
