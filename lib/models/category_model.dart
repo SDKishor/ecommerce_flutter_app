@@ -35,8 +35,8 @@ class CategoryModel {
         id: document.id,
         name: data!["Name"] ?? "",
         image: data["Image"] ?? "",
-        isFeatured: data["IsFeatured"] ?? "",
-        parentID: data["ParentID"] ?? false,
+        isFeatured: data["IsFeatured"] ?? false,
+        parentID: data["ParentID"] ?? "",
       );
     } else {
       return CategoryModel.empty();

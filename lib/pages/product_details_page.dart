@@ -39,7 +39,6 @@ class ProductDetails extends StatelessWidget {
                   ProductMetaData(darkmode: darkmode),
 
                   //Attributes
-                  ProductAattribute(darkmode: darkmode),
 
                   //Checkout button
                   SizedBox(

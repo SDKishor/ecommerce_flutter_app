@@ -1,5 +1,5 @@
-import 'package:ecommerce_app/common/dummydata.dart';
 import 'package:ecommerce_app/common/widgets/cart_counter_icon.dart';
+import 'package:ecommerce_app/common/widgets/category_shimmer_effect.dart';
 
 import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
 import 'package:ecommerce_app/common/widgets/custom_search_bar.dart';
@@ -7,9 +7,11 @@ import 'package:ecommerce_app/common/widgets/grid_layout.dart';
 import 'package:ecommerce_app/common/widgets/primary_header_container.dart';
 import 'package:ecommerce_app/common/widgets/product_card_vertical.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
+import 'package:ecommerce_app/features/common/product_controller.dart';
 
 import 'package:ecommerce_app/features/homepage/widgets/homepage_widgets.dart';
 import 'package:ecommerce_app/pages/all_product_page.dart';
+import 'package:ecommerce_app/pages/cart_page.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 
 import 'package:ecommerce_app/utils/constants/sizes.dart';
@@ -23,6 +25,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final darkmode = THelperFunctions.isDarkMode(context);
+    final productController = Get.put(ProductController());
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -38,8 +41,7 @@ class HomePage extends StatelessWidget {
                       CartCounterIcon(
                         darkmode: darkmode,
                         onpressed: () async {
-                          // Get.to(() => const CartPage());
-                          DummyData().saveListData();
+                          Get.to(() => const CartPage());
                         },
                       )
                     ],
@@ -88,10 +90,31 @@ class HomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(
                   horizontal: TSizes.defaultSpace / 2),
-              child: GridLayout(
-                itemcount: 4,
-                itembuilder: (_, index) => const ProductCardVertical(),
-              ),
+              child: Obx(() {
+                if (productController.isLoading.value) {
+                  return const CategoryShimmerEffect();
+                  //todo productShimmerEffect
+                }
+
+                if (productController.featuredProduct.isEmpty) {
+                  return Center(
+                    child: Text(
+                      "No Data Found!",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .apply(color: Colors.white),
+                    ),
+                  );
+                }
+
+                return GridLayout(
+                  itemcount: productController.featuredProduct.length,
+                  itembuilder: (_, index) => ProductCardVertical(
+                    product: productController.featuredProduct[index],
+                  ),
+                );
+              }),
             ),
           ],
         ),

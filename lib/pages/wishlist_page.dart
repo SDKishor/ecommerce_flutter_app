@@ -2,6 +2,7 @@ import 'package:ecommerce_app/common/widgets/circular_icon.dart';
 import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
 import 'package:ecommerce_app/common/widgets/grid_layout.dart';
 import 'package:ecommerce_app/common/widgets/product_card_vertical.dart';
+import 'package:ecommerce_app/models/product_model.dart';
 import 'package:ecommerce_app/pages/home_page.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
@@ -36,7 +37,8 @@ class WishListPage extends StatelessWidget {
             children: [
               GridLayout(
                   itemcount: 8,
-                  itembuilder: (_, index) => const ProductCardVertical())
+                  itembuilder: (_, index) =>
+                      ProductCardVertical(product: ProductModel.empty()))
             ],
           ),
         ),

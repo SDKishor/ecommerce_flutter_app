@@ -5,9 +5,11 @@ import 'package:ecommerce_app/common/widgets/circle_container.dart';
 import 'package:ecommerce_app/common/widgets/circular_icon.dart';
 import 'package:ecommerce_app/common/widgets/product_price_text.dart';
 import 'package:ecommerce_app/common/widgets/rounded_image.dart';
+import 'package:ecommerce_app/features/common/product_controller.dart';
+import 'package:ecommerce_app/models/product_model.dart';
 import 'package:ecommerce_app/pages/product_details_page.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
-import 'package:ecommerce_app/utils/constants/image_strings.dart';
+
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +17,14 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ProductCardVertical extends StatelessWidget {
-  const ProductCardVertical({super.key});
+  const ProductCardVertical({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
     final darkmode = THelperFunctions.isDarkMode(context);
+    final controller = ProductController.instance;
 
     return GestureDetector(
       onTap: () {
@@ -42,7 +47,8 @@ class ProductCardVertical extends StatelessWidget {
               child: Stack(
                 children: [
                   RoundedImage(
-                    imagepath: TImageStrings.productImage1,
+                    isNetworkImage: true,
+                    imagepath: product.thumbnail,
                     backgroundColor: darkmode ? TColors.dark : TColors.light,
                   ),
                   Positioned(
@@ -54,7 +60,7 @@ class ProductCardVertical extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: TSizes.sm, vertical: TSizes.xs),
                       child: Text(
-                        "25%",
+                        "${controller.calcSalePercentage(product.price, product.salePrice)}%",
                         style: Theme.of(context)
                             .textTheme
                             .labelLarge!
@@ -77,19 +83,19 @@ class ProductCardVertical extends StatelessWidget {
             const SizedBox(
               height: TSizes.spaceBtwItems / 2,
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: TSizes.sm),
+            Padding(
+              padding: const EdgeInsets.only(left: TSizes.sm),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ProductTitleText(
-                    title: "green Nike air shoes",
+                    title: product.title,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
                   BrandTitleTextWithVarifiedIcon(
-                    title: "NIKE",
+                    title: product.brand!.name,
                   ),
                 ],
               ),
@@ -100,8 +106,8 @@ class ProductCardVertical extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const ProductPriceText(
-                    price: "35",
+                  ProductPriceText(
+                    price: product.salePrice.toString(),
                     isLarge: true,
                   ),
                   Container(

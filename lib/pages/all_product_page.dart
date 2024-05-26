@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
 import 'package:ecommerce_app/common/widgets/grid_layout.dart';
 import 'package:ecommerce_app/common/widgets/product_card_vertical.dart';
+import 'package:ecommerce_app/models/product_model.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -53,7 +54,7 @@ class SortableProducts extends StatelessWidget {
               _,
               index,
             ) =>
-                const ProductCardVertical())
+                ProductCardVertical(product: ProductModel.empty()))
       ],
     );
   }

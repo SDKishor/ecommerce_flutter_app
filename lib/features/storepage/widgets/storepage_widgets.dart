@@ -2,6 +2,7 @@ import 'package:ecommerce_app/common/widgets/brand_show_case_card.dart';
 import 'package:ecommerce_app/common/widgets/grid_layout.dart';
 import 'package:ecommerce_app/common/widgets/product_card_vertical.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
+import 'package:ecommerce_app/models/product_model.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
@@ -41,7 +42,8 @@ class CatagoryTab extends StatelessWidget {
                 const SizedBox(height: TSizes.spaceBtwItems),
                 GridLayout(
                   itemcount: 4,
-                  itembuilder: (_, index) => const ProductCardVertical(),
+                  itembuilder: (_, index) =>
+                      ProductCardVertical(product: ProductModel.empty()),
                 ),
                 const SizedBox(height: TSizes.spaceBtwItems),
               ],
