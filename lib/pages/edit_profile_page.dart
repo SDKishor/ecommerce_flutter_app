@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
 import 'package:ecommerce_app/common/widgets/rounded_image.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
-import 'package:ecommerce_app/common/widgets/shimmer_effect.dart';
+import 'package:ecommerce_app/common/widgets/shimmer_Effect/shimmer_effect.dart';
 import 'package:ecommerce_app/features/editprofilepage/widgets/edit_profile_page_widgets.dart';
 import 'package:ecommerce_app/features/common/user_controller.dart';
 import 'package:ecommerce_app/pages/change_name_page.dart';

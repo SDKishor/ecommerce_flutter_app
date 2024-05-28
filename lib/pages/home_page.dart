@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/common/widgets/cart_counter_icon.dart';
-import 'package:ecommerce_app/common/widgets/category_shimmer_effect.dart';
 
 import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
 import 'package:ecommerce_app/common/widgets/custom_search_bar.dart';
@@ -7,6 +6,7 @@ import 'package:ecommerce_app/common/widgets/grid_layout.dart';
 import 'package:ecommerce_app/common/widgets/primary_header_container.dart';
 import 'package:ecommerce_app/common/widgets/product_card_vertical.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
+import 'package:ecommerce_app/common/widgets/shimmer_Effect/vertical_product_shimmer.dart';
 import 'package:ecommerce_app/features/common/product_controller.dart';
 
 import 'package:ecommerce_app/features/homepage/widgets/homepage_widgets.dart';
@@ -92,7 +92,7 @@ class HomePage extends StatelessWidget {
                   horizontal: TSizes.defaultSpace / 2),
               child: Obx(() {
                 if (productController.isLoading.value) {
-                  return const CategoryShimmerEffect();
+                  return const VerticalShimmerEffect();
                   //todo productShimmerEffect
                 }
 
@@ -109,6 +109,7 @@ class HomePage extends StatelessWidget {
                 }
 
                 return GridLayout(
+                  mainAxisExtent: 320,
                   itemcount: productController.featuredProduct.length,
                   itembuilder: (_, index) => ProductCardVertical(
                     product: productController.featuredProduct[index],

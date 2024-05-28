@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:ecommerce_app/common/widgets/category_shimmer_effect.dart';
+import 'package:ecommerce_app/common/widgets/shimmer_Effect/category_shimmer_effect.dart';
 import 'package:ecommerce_app/common/widgets/circle_container.dart';
 import 'package:ecommerce_app/common/widgets/rounded_image.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
-import 'package:ecommerce_app/common/widgets/shimmer_effect.dart';
+import 'package:ecommerce_app/common/widgets/shimmer_Effect/shimmer_effect.dart';
 import 'package:ecommerce_app/common/widgets/vertical_image_text.dart';
 import 'package:ecommerce_app/features/common/banner_controller.dart';
 import 'package:ecommerce_app/features/common/categories_controller.dart';

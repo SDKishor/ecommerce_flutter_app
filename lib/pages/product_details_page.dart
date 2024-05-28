@@ -1,6 +1,8 @@
 import 'package:ecommerce_app/common/widgets/bottom_add_to_cart.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
+import 'package:ecommerce_app/features/common/image_controller.dart';
 import 'package:ecommerce_app/features/productdetailpage/widgets/product_detail_page_widgets.dart';
+import 'package:ecommerce_app/models/product_model.dart';
 import 'package:ecommerce_app/pages/procuct_review_page.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
@@ -10,18 +12,24 @@ import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 
 class ProductDetails extends StatelessWidget {
-  const ProductDetails({super.key});
+  const ProductDetails({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
     final darkmode = THelperFunctions.isDarkMode(context);
+
     return Scaffold(
       bottomNavigationBar: BottomAddToCart(darkmode: darkmode),
       body: SingleChildScrollView(
         child: Column(
           children: [
             //image slider
-            ProductImageSlider(darkmode: darkmode),
+            ProductImageSlider(
+              darkmode: darkmode,
+              product: product,
+            ),
 
             //product details
             Padding(

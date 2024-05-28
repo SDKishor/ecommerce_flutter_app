@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/common/widgets/brand_title_text_verified.dart';
 import 'package:ecommerce_app/common/widgets/circle_container.dart';
 import 'package:ecommerce_app/common/widgets/circular_icon.dart';
@@ -8,35 +9,57 @@ import 'package:ecommerce_app/common/widgets/product_price_text.dart';
 import 'package:ecommerce_app/common/widgets/product_title_text.dart';
 import 'package:ecommerce_app/common/widgets/rounded_image.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
+import 'package:ecommerce_app/features/common/image_controller.dart';
+import 'package:ecommerce_app/models/product_model.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/enums.dart';
 import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ProductImageSlider extends StatelessWidget {
   const ProductImageSlider({
     super.key,
     required this.darkmode,
+    required this.product,
   });
-
+  final ProductModel product;
   final bool darkmode;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ImageController());
+    final images = controller.getAllPoductImage(product);
     return CurvedEdgeWidget(
       child: Container(
         color: darkmode ? TColors.darkGrey : TColors.grey,
         child: Stack(
           children: [
-            const SizedBox(
+            SizedBox(
               height: 400,
               child: Padding(
-                padding: EdgeInsets.all(TSizes.productImageRadius * 2),
+                padding: const EdgeInsets.all(TSizes.productImageRadius * 2),
                 child: Center(
-                    child:
-                        Image(image: AssetImage(TImageStrings.productImage5))),
+                  child: Obx(
+                    () {
+                      final image = controller.selectedProductImage.value;
+                      return GestureDetector(
+                        onTap: () => controller.showEnleargedImage(image),
+                        child: CachedNetworkImage(
+                          imageUrl: image,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(
+                            value: downloadProgress.progress,
+                            color: TColors.primary,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
             ),
             //image slider
@@ -50,18 +73,31 @@ class ProductImageSlider extends StatelessWidget {
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     physics: const AlwaysScrollableScrollPhysics(),
-                    itemBuilder: (_, index) => RoundedImage(
-                          border: Border.all(color: TColors.primary),
-                          width: 80,
-                          imagepath: TImageStrings.productImage3,
-                          backgroundColor:
-                              darkmode ? TColors.dark : TColors.light,
-                          padding: const EdgeInsets.all(TSizes.sm),
-                        ),
+                    itemBuilder: (_, index) => Obx(() {
+                          final imageSelected =
+                              controller.selectedProductImage.value ==
+                                  images[index];
+                          return RoundedImage(
+                            ontap: () {
+                              controller.selectedProductImage.value =
+                                  images[index];
+                            },
+                            isNetworkImage: true,
+                            border: Border.all(
+                                color: imageSelected
+                                    ? TColors.primary
+                                    : Colors.transparent),
+                            width: 80,
+                            imagepath: images[index],
+                            backgroundColor:
+                                darkmode ? TColors.dark : TColors.light,
+                            padding: const EdgeInsets.all(TSizes.sm),
+                          );
+                        }),
                     separatorBuilder: (_, __) => const SizedBox(
                           width: TSizes.spaceBtwItems,
                         ),
-                    itemCount: 4),
+                    itemCount: images.length),
               ),
             ),
 
