@@ -1,9 +1,9 @@
 import 'package:ecommerce_app/common/widgets/bottom_add_to_cart.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
-import 'package:ecommerce_app/features/common/image_controller.dart';
 import 'package:ecommerce_app/features/productdetailpage/widgets/product_detail_page_widgets.dart';
 import 'package:ecommerce_app/models/product_model.dart';
 import 'package:ecommerce_app/pages/procuct_review_page.dart';
+import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -44,10 +44,13 @@ class ProductDetails extends StatelessWidget {
                   const RatingAndShere(),
 
                   //price, title, stock, brand
-                  ProductMetaData(darkmode: darkmode),
+                  ProductMetaData(
+                    darkmode: darkmode,
+                    product: product,
+                  ),
 
                   //Attributes
-
+                  const SizedBox(height: TSizes.spaceBtwSections),
                   //Checkout button
                   SizedBox(
                     width: double.infinity,
@@ -59,18 +62,21 @@ class ProductDetails extends StatelessWidget {
                   const SizedBox(height: TSizes.spaceBtwSections),
 
                   //Description
-                  const SectionHeading(headingText: "Description"),
+                  SectionHeading(
+                      showButton: false,
+                      headingText: "Description",
+                      textColor: darkmode ? TColors.light : TColors.dark),
                   const SizedBox(height: TSizes.spaceBtwItems),
-                  const ReadMoreText(
-                    "This is a product description for blue nike tshirt. One of the most sold product. Soft fabrics, various color and size variation so choose. Order now before the stock run out limited stock",
+                  ReadMoreText(
+                    product.description ?? "",
                     trimLines: 2,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: "Show More",
                     trimExpandedText: "Less",
-                    moreStyle:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-                    lessStyle:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                    moreStyle: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w800),
+                    lessStyle: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w800),
                   ),
                   const SizedBox(height: TSizes.spaceBtwItems),
 
@@ -80,10 +86,10 @@ class ProductDetails extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const SectionHeading(
-                        headingText: "Reviews(119)",
-                        showButton: false,
-                      ),
+                      SectionHeading(
+                          headingText: "Reviews(119)",
+                          showButton: false,
+                          textColor: darkmode ? TColors.light : TColors.dark),
                       IconButton(
                           onPressed: () {
                             Get.to(() => const ProductReviewPage());

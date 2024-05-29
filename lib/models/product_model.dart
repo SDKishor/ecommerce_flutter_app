@@ -59,4 +59,21 @@ class ProductModel {
       description: data["Description"] ?? "",
     );
   }
+
+  factory ProductModel.fromQuerySnapShot(
+      QueryDocumentSnapshot<Object?> document) {
+    final data = document.data() as Map<String, dynamic>;
+    return ProductModel(
+      title: data["Title"] ?? "",
+      stock: data["Stock"] ?? 0,
+      price: double.parse((data["Price"] ?? 0.0).toString()),
+      thumbnail: data["Thumbnail"] ?? "",
+      catagoryID: data["CatagoryID"] ?? "",
+      brand: BrandModel.fromJson(data["Brand"]),
+      images: data["Images"] != null ? List<String>.from(data["Images"]) : [],
+      salePrice: double.parse((data["SalePrice"] ?? 0.0).toString()),
+      isFeatured: data["IsFeatured"] ?? false,
+      description: data["Description"] ?? "",
+    );
+  }
 }

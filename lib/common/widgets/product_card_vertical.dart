@@ -47,6 +47,7 @@ class ProductCardVertical extends StatelessWidget {
               child: Stack(
                 children: [
                   RoundedImage(
+                    height: 180,
                     isNetworkImage: true,
                     imagepath: product.thumbnail,
                     backgroundColor: darkmode ? TColors.dark : TColors.light,

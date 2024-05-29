@@ -3,7 +3,6 @@ import 'package:ecommerce_app/models/product_model.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 
 class ImageController extends GetxController {
   static ImageController get instance => Get.find();

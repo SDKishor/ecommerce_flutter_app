@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/common/widgets/brand_card.dart';
 import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
-import 'package:ecommerce_app/pages/all_product_page.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,7 @@ class BrandsProducts extends StatelessWidget {
                 children: [
                   BrandCard(darkmode: darkmode),
                   const SizedBox(height: TSizes.spaceBtwItems),
-                  const SortableProducts(),
+                  // const SortableProducts(),
                 ],
               ))),
     );

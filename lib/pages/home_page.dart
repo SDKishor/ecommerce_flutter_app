@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app/common/widgets/cart_counter_icon.dart';
 
 import 'package:ecommerce_app/common/widgets/custom_appbar.dart';
@@ -79,7 +80,12 @@ class HomePage extends StatelessWidget {
               child: SectionHeading(
                 headingText: "Popular Products",
                 onpressed: () {
-                  Get.to(() => const AllProducts());
+                  Get.to(() => AllProducts(
+                        title: "Propular Product",
+                        query: FirebaseFirestore.instance
+                            .collection("Products")
+                            .where("IsFeatured", isEqualTo: true),
+                      ));
                 },
                 textColor: !darkmode ? TColors.dark : TColors.light,
               ),
@@ -93,7 +99,6 @@ class HomePage extends StatelessWidget {
               child: Obx(() {
                 if (productController.isLoading.value) {
                   return const VerticalShimmerEffect();
-                  //todo productShimmerEffect
                 }
 
                 if (productController.featuredProduct.isEmpty) {

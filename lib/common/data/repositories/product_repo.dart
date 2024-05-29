@@ -32,4 +32,21 @@ class ProductRepo extends GetxController {
       throw "something went wrong";
     }
   }
+
+  Future<List<ProductModel>> fetchProductsByQuery(Query query) async {
+    try {
+      final querySnapshot = await query.get();
+      final List<ProductModel> productList = querySnapshot.docs
+          .map((doc) => ProductModel.fromQuerySnapShot(doc))
+          .toList();
+      return productList;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      Loaders.errorSnackBar(title: "oh Snap!", message: e.toString());
+      throw "something went wrong";
+    }
+  }
 }

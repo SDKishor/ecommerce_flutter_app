@@ -10,10 +10,10 @@ import 'package:ecommerce_app/common/widgets/product_title_text.dart';
 import 'package:ecommerce_app/common/widgets/rounded_image.dart';
 import 'package:ecommerce_app/common/widgets/section_heading.dart';
 import 'package:ecommerce_app/features/common/image_controller.dart';
+import 'package:ecommerce_app/features/common/product_controller.dart';
 import 'package:ecommerce_app/models/product_model.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/enums.dart';
-import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -160,8 +160,10 @@ class ProductMetaData extends StatelessWidget {
   const ProductMetaData({
     super.key,
     required this.darkmode,
+    required this.product,
   });
   final bool darkmode;
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +178,7 @@ class ProductMetaData extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                   horizontal: TSizes.sm, vertical: TSizes.xs),
               child: Text(
-                "25%",
+                "${ProductController.instance.calcSalePercentage(product.price, product.salePrice)}%",
                 style: Theme.of(context)
                     .textTheme
                     .labelLarge!
@@ -187,23 +189,23 @@ class ProductMetaData extends StatelessWidget {
 
             //price
             Text(
-              "\$250",
+              "\$${product.price}",
               style: Theme.of(context)
                   .textTheme
                   .titleSmall!
                   .apply(decoration: TextDecoration.lineThrough),
             ),
             const SizedBox(width: TSizes.spaceBtwItems),
-            const ProductPriceText(
-              price: "175",
+            ProductPriceText(
+              price: product.salePrice.toString(),
               isLarge: true,
             ),
           ],
         ),
         const SizedBox(height: TSizes.spaceBtwSections),
         //title
-        const ProductTitleText(
-          title: "Green Nike Sports Shirt",
+        ProductTitleText(
+          title: product.title.toString(),
         ),
         const SizedBox(height: TSizes.spaceBtwItems / 2),
         //status
@@ -214,7 +216,7 @@ class ProductMetaData extends StatelessWidget {
             ),
             const SizedBox(width: TSizes.spaceBtwItems),
             Text(
-              "In Stock",
+              product.stock <= 0 ? "Out of stock" : "In Stock",
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(width: TSizes.spaceBtwItems),
@@ -224,15 +226,16 @@ class ProductMetaData extends StatelessWidget {
         Row(
           children: [
             RoundedImage(
-              imagepath: TImageStrings.clothIcon,
+              isNetworkImage: true,
+              imagepath: product.brand!.image,
               width: 32,
               height: 32,
               backgroundColor: Colors.transparent,
               imageColor: darkmode ? TColors.light : TColors.dark,
             ),
             const SizedBox(width: TSizes.spaceBtwItems / 1.5),
-            const BrandTitleTextWithVarifiedIcon(
-              title: "Nike",
+            BrandTitleTextWithVarifiedIcon(
+              title: product.brand!.name,
               brandTextSize: TextSizes.medium,
             ),
           ],
